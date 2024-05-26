@@ -14,7 +14,7 @@ function App() {
       <TopLeftLogo />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/rooms" element={<Rooms />} /> */}
+        <Route path="/:room" element={<Rooms />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
       <Nav />

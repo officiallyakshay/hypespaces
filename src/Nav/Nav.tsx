@@ -21,11 +21,6 @@ export const Nav = () => {
             <BiHome fontSize="1.5rem" color="white" />
           </Button>
         </ChakraLink>
-        {/* <ChakraLink as={ReactRouterLink} to="/rooms">
-        <Button variant="none" fontFamily="monospace">
-          Rooms
-        </Button>
-      </ChakraLink> */}
         <ChakraLink as={ReactRouterLink} to="/profile">
           <Button variant="none">
             <AiOutlineUser fontSize="1.5rem" color="white" />
