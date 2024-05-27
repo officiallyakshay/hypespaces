@@ -5,13 +5,14 @@ import Nav from "./Nav";
 import Home from "./Home";
 import Rooms from "./Rooms";
 import Profile from "./Profile";
-import { Flex } from "@chakra-ui/react";
+import { Divider, Flex } from "@chakra-ui/react";
 import { TopLeftLogo } from "./TopLeftLogo";
 
 function App() {
   return (
     <Flex flexDir="column" padding="4">
       <TopLeftLogo />
+      <Divider mb="5" />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:room" element={<Rooms />} />

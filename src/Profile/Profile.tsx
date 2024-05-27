@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,6 +9,8 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
+import { PiWarning } from "react-icons/pi";
+import { BottomProfileButtons } from "./BottomProfileButtons";
 
 const user = {
   name: "Akshay Prabhakar",
@@ -20,35 +22,89 @@ const all_rooms = ["lifestyle", "fitness", "cooking", "trends", "traveling"];
 
 export const Profile = () => {
   const [editing, setEditing] = useState(false);
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [memberOfRooms, setMemberOfRooms] = useState([]);
+
+  useEffect(() => {
+    setName(user.name);
+    setBio(user.bio);
+    console.log("use effect name", name);
+    // setMemberOfRooms(user.member_of_rooms);
+  }, [name, bio, memberOfRooms]);
 
   const editProfile = () => {
     !editing ? setEditing(true) : setEditing(false);
   };
 
+  const saveProfile = () => {
+    if (editing) {
+      setName(name);
+      setEditing(true);
+      console.log("saveprofile before set", name);
+    }
+    setEditing(false);
+    console.log("saveprofile after set", name);
+  };
+
+  const editName = (e) => {
+    e.preventDefault();
+    // console.log("editName e", e.target.value, "before setname", name);
+    setName(e.target.value);
+  };
+
+  const editBio = (e) => {
+    e.preventDefault();
+    setBio(e.target.value);
+  };
+
   return (
     <Box>
       <Flex mb="6" justify="space-between">
-        <Text color="white">My Profile</Text>
-        <Text color="white" onClick={editProfile}>
-          {editing ? "Save Profile" : "Edit Profile"}
+        <Text color="white" alignContent="center">
+          My Profile
         </Text>
+        {!editing ? (
+          <Button
+            variant="outline"
+            size="sm"
+            color="white"
+            onClick={editProfile}
+          >
+            Edit Profile
+          </Button>
+        ) : (
+          <Button size="sm" onClick={saveProfile}>
+            Save Profile
+          </Button>
+        )}
       </Flex>
 
       <Flex flexDir="column" mb="8">
         <FormLabel color="white">Name</FormLabel>
         {editing ? (
-          <Input placeholder="Add Your Name" value={user.name} color="white" />
+          <Input
+            placeholder="Add Your Name"
+            defaultValue={name}
+            color="white"
+            onChange={editName}
+          />
         ) : (
-          <Text color="white">{user.name}</Text>
+          <Text color="white">{name}</Text>
         )}
       </Flex>
 
       <Flex flexDir="column" mb="8">
         <FormLabel color="white">Bio</FormLabel>
         {editing ? (
-          <Textarea placeholder="Add Your Bio" value={user.bio} color="white" />
+          <Textarea
+            placeholder="Add Your Bio"
+            value={bio}
+            color="white"
+            onChange={(e) => editBio(e)}
+          />
         ) : (
-          <Text color="white">{user.bio}</Text>
+          <Text color="white">{bio}</Text>
         )}
       </Flex>
 
@@ -68,16 +124,7 @@ export const Profile = () => {
             ))}
       </Flex>
 
-      {editing ? (
-        <Flex flexDir="column" mb="8">
-          <Button variant="outline" color="white">
-            Sign Out
-          </Button>
-          <Button bg="red.500" color="white" mt="5">
-            Delete Account
-          </Button>
-        </Flex>
-      ) : null}
+      {editing ? <BottomProfileButtons /> : null}
     </Box>
   );
 };
