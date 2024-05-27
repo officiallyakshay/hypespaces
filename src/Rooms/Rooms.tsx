@@ -1,6 +1,12 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { Flex, Text } from "@chakra-ui/react";
 
 export const Rooms = () => {
-  return <Flex>Rooms</Flex>;
+  const { room } = useParams();
+  return (
+    <Flex>
+      <Text color="white">{room}</Text>
+    </Flex>
+  );
 };

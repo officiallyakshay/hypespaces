@@ -1,13 +1,13 @@
 import React from "react";
-import { Button, Flex, Link, Text } from "@chakra-ui/react";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 
 const rooms = [
   { topic: "lifestyle", numberOfMembers: 5, currentlyActive: 1 },
   { topic: "fitness", numberOfMembers: 4, currentlyActive: 2 },
   { topic: "cooking", numberOfMembers: 10, currentlyActive: 8 },
-  // { topic: "lifestyle", numberOfMembers: 5, currentlyActive: 1 },
-  // { topic: "lifestyle", numberOfMembers: 5, currentlyActive: 1 },
+  { topic: "trends", numberOfMembers: 50, currentlyActive: 15 },
+  { topic: "traveling", numberOfMembers: 25, currentlyActive: 11 },
 ];
 
 export const Home = () => {
