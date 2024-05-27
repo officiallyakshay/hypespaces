@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import {
   Box,
   Button,
@@ -47,14 +47,11 @@ export const Profile = () => {
     console.log("saveprofile after set", name);
   };
 
-  const editName = (e) => {
-    e.preventDefault();
-    // console.log("editName e", e.target.value, "before setname", name);
+  const editName = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
-  const editBio = (e) => {
-    e.preventDefault();
+  const editBio = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setBio(e.target.value);
   };
 
@@ -87,7 +84,7 @@ export const Profile = () => {
             placeholder="Add Your Name"
             defaultValue={name}
             color="white"
-            onChange={editName}
+            onChange={(e) => editName(e)}
           />
         ) : (
           <Text color="white">{name}</Text>
