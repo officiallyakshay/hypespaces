@@ -14,7 +14,7 @@ export const Home = () => {
   return (
     <>
       {rooms.map((room, i) => (
-        <Link as={ReactRouterLink} to={`${room.topic}`}>
+        <Link as={ReactRouterLink} to={`${room.topic}`} key={i}>
           <Flex
             padding="2"
             border="1px solid grey"
@@ -22,7 +22,6 @@ export const Home = () => {
             borderRadius="5"
             flexDir="column"
             onClick={() => console.log("room.topic", room.topic)}
-            key={i}
           >
             <Text color="white">Topic: {room.topic}</Text>
             <Flex justify="space-between" mt="5">
