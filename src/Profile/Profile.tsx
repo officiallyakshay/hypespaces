@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Box,
+  Button,
   Checkbox,
   Flex,
   FormLabel,
@@ -66,6 +67,17 @@ export const Profile = () => {
               <Text color="white">{member}</Text>
             ))}
       </Flex>
+
+      {editing ? (
+        <Flex flexDir="column" mb="8">
+          <Button variant="outline" color="white">
+            Sign Out
+          </Button>
+          <Button bg="red.500" color="white" mt="5">
+            Delete Account
+          </Button>
+        </Flex>
+      ) : null}
     </Box>
   );
 };
