@@ -5,7 +5,7 @@ import { Flex, Text } from "@chakra-ui/react";
 export const Rooms = () => {
   const { room } = useParams();
   return (
-    <Flex>
+    <Flex mb="4">
       <Text color="white">{room}</Text>
     </Flex>
   );

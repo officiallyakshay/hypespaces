@@ -15,7 +15,7 @@ export const Nav = () => {
   return (
     <>
       <Divider />
-      <Flex justify="space-between">
+      <Flex justify="space-between" mt="2">
         <ChakraLink as={ReactRouterLink} to="/">
           <Button variant="none">
             <BiHome fontSize="1.5rem" color="white" />
