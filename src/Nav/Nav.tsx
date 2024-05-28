@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link as ReactRouterLink, useParams } from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
 import {
   Box,
   Button,

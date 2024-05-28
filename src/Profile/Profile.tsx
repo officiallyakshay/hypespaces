@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import {
   Box,
   Button,
@@ -6,50 +6,102 @@ import {
   Flex,
   FormLabel,
   Input,
+  Spinner,
   Text,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { BottomProfileButtons } from "./BottomProfileButtons";
 
-const user = {
-  name: "Akshay Prabhakar",
-  bio: "Lover of the creator economy and oat milk lattes. Founder, Software Engineer @ Partnr",
-  member_of_rooms: ["fitness", "lifestyle"],
+const fetchUserProfile = () => {
+  return {
+    name: "Akshay Prabhakar",
+    bio: "Lover of the creator economy and oat milk lattes. Founder, Software Engineer @ Partnr",
+    member_of_rooms: ["fitness", "lifestyle"],
+  };
 };
 
 const all_rooms = ["lifestyle", "fitness", "cooking", "trends", "traveling"];
 
+export interface UserData {
+  name: string;
+  bio: string;
+  member_of_rooms: string[];
+}
+
 export const Profile = () => {
+  const [userProfile, setUserProfile] = useState<UserData | null>(null);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
-  const [memberOfRooms, setMemberOfRooms] = useState([]);
+  const [memberOfRooms, setMemberOfRooms] = useState<string[]>([]);
+  const toast = useToast();
 
   useEffect(() => {
-    setName(user.name);
-    setBio(user.bio);
-    // setMemberOfRooms(user.member_of_rooms);
-  }, [name, bio, memberOfRooms]);
+    const getUserData = async () => {
+      const userData = await fetchUserProfile();
+      setUserProfile(userData);
+      setName(userData.name);
+      setBio(userData.bio);
+      setMemberOfRooms(userData.member_of_rooms);
+    };
 
-  const editProfile = () => {
-    !editing ? setEditing(true) : setEditing(false);
+    getUserData();
+  }, []);
+
+  const toggleEditProfile = () => {
+    setEditing(!editing);
   };
 
   const saveProfile = () => {
     if (editing) {
-      setName(name);
-      setEditing(true);
+      if (
+        name !== userProfile?.name ||
+        bio !== userProfile?.bio ||
+        JSON.stringify(memberOfRooms) !==
+          JSON.stringify(userProfile?.member_of_rooms)
+      ) {
+        const updatedProfile = {
+          name,
+          bio,
+          member_of_rooms: memberOfRooms,
+        };
+        toast({
+          title: "Profile Saved",
+          status: "success",
+          isClosable: true,
+        });
+        setUserProfile(updatedProfile);
+        console.log("userProfile in change", userProfile);
+      }
     }
     setEditing(false);
   };
 
-  const editName = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
-  const editBio = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleBioChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setBio(e.target.value);
   };
+
+  const handleRoomChange = (room: string) => {
+    if (memberOfRooms.includes(room)) {
+      setMemberOfRooms(memberOfRooms.filter((r) => r !== room));
+    } else {
+      setMemberOfRooms([...memberOfRooms, room]);
+    }
+  };
+
+  if (!userProfile) {
+    return (
+      <Box>
+        <Text>Loading</Text>
+        <Spinner color="red.500" />
+      </Box>
+    );
+  }
 
   return (
     <Box>
@@ -59,10 +111,10 @@ export const Profile = () => {
         </Text>
         {!editing ? (
           <Button
-            variant="outline"
+            variant={editing ? "solid" : "outline"}
             color="white"
             size="sm"
-            onClick={editProfile}
+            onClick={editing ? saveProfile : toggleEditProfile}
           >
             Edit Profile
           </Button>
@@ -80,7 +132,7 @@ export const Profile = () => {
             placeholder="Add Your Name"
             defaultValue={name}
             color="white"
-            onChange={(e) => editName(e)}
+            onChange={(e) => handleNameChange(e)}
           />
         ) : (
           <Text color="white">{name}</Text>
@@ -94,7 +146,7 @@ export const Profile = () => {
             placeholder="Add Your Bio"
             value={bio}
             color="white"
-            onChange={(e) => editBio(e)}
+            onChange={(e) => handleBioChange(e)}
           />
         ) : (
           <Text color="white">{bio}</Text>
@@ -103,20 +155,28 @@ export const Profile = () => {
 
       <Flex flexDir="column" mb="8">
         <FormLabel color="white">Member of these rooms:</FormLabel>
-        {editing
-          ? all_rooms.map((room) => (
-              <Checkbox
-                key={room}
-                isChecked={user.member_of_rooms.includes(room)}
-              >
-                <Text color="white">{room}</Text>
-              </Checkbox>
-            ))
-          : user.member_of_rooms.map((member) => (
-              <Text color="white" key={member}>
-                {member}
-              </Text>
-            ))}
+        {memberOfRooms.length === 0 && !editing ? (
+          <Text color="white">
+            You're not a part of any room! Let's change that. Join a room by
+            clicking the edit profile button at the top right!
+          </Text>
+        ) : editing ? (
+          all_rooms.map((room) => (
+            <Checkbox
+              key={room}
+              isChecked={memberOfRooms.includes(room)}
+              onChange={() => handleRoomChange(room)}
+            >
+              <Text color="white">{room}</Text>
+            </Checkbox>
+          ))
+        ) : (
+          memberOfRooms.map((member) => (
+            <Text key={member} color="white">
+              {member}
+            </Text>
+          ))
+        )}
       </Flex>
 
       {editing ? <BottomProfileButtons /> : null}
