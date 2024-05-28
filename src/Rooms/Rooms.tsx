@@ -16,7 +16,7 @@ export const Rooms = () => {
   const handleSendClick = () => {
     if (inputValue.trim()) {
       setMessages([...messages, inputValue.trim()]);
-      setInputValue(""); // Clear the input field
+      setInputValue("");
     }
   };
 
@@ -31,6 +31,7 @@ export const Rooms = () => {
           fontSize="1.5rem"
           color="white"
           onClick={handleBackClick}
+          cursor="pointer"
         />
         <Text color="white" fontSize="lg">
           {`Room: ${room}`}

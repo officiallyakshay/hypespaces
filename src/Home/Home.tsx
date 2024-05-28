@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Link, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 
@@ -21,7 +20,6 @@ export const Home = () => {
             mb="5"
             borderRadius="5"
             flexDir="column"
-            onClick={() => console.log("room.topic", room.topic)}
           >
             <Text color="white">Topic: {room.topic}</Text>
             <Flex justify="space-between" mt="5">

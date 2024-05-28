@@ -70,6 +70,7 @@ export const Profile = () => {
           title: "Profile Saved",
           status: "success",
           isClosable: true,
+          duration: 1000,
         });
         setUserProfile(updatedProfile);
         console.log("userProfile in change", userProfile);
@@ -96,10 +97,10 @@ export const Profile = () => {
 
   if (!userProfile) {
     return (
-      <Box>
-        <Text>Loading</Text>
-        <Spinner color="red.500" />
-      </Box>
+      <Flex>
+        <Text color="white">Loading</Text>
+        <Spinner color="white" ml="2" />
+      </Flex>
     );
   }
 

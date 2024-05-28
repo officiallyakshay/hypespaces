@@ -1,5 +1,4 @@
 import "./App.css";
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./Nav";
 import Home from "./Home";
