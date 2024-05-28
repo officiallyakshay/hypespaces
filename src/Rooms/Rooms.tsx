@@ -25,7 +25,7 @@ export const Rooms = () => {
   };
 
   return (
-    <Flex flexDir="column" mb="4" height="100vh">
+    <Flex flexDir="column" mb="4">
       <Flex align="center">
         <IoIosArrowBack
           fontSize="1.5rem"
