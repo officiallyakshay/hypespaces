@@ -1,12 +1,6 @@
 import React from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Divider,
-  Link as ChakraLink,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Link as ChakraLink, Text } from "@chakra-ui/react";
 
 export const TopLeftLogo = () => {
   return (

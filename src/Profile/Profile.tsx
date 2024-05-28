@@ -9,7 +9,6 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { PiWarning } from "react-icons/pi";
 import { BottomProfileButtons } from "./BottomProfileButtons";
 
 const user = {
@@ -29,7 +28,6 @@ export const Profile = () => {
   useEffect(() => {
     setName(user.name);
     setBio(user.bio);
-    console.log("use effect name", name);
     // setMemberOfRooms(user.member_of_rooms);
   }, [name, bio, memberOfRooms]);
 
@@ -41,10 +39,8 @@ export const Profile = () => {
     if (editing) {
       setName(name);
       setEditing(true);
-      console.log("saveprofile before set", name);
     }
     setEditing(false);
-    console.log("saveprofile after set", name);
   };
 
   const editName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,8 +60,8 @@ export const Profile = () => {
         {!editing ? (
           <Button
             variant="outline"
-            size="sm"
             color="white"
+            size="sm"
             onClick={editProfile}
           >
             Edit Profile
@@ -117,7 +113,9 @@ export const Profile = () => {
               </Checkbox>
             ))
           : user.member_of_rooms.map((member) => (
-              <Text color="white">{member}</Text>
+              <Text color="white" key={member}>
+                {member}
+              </Text>
             ))}
       </Flex>
 

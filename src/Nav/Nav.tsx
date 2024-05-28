@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link as ReactRouterLink, useParams } from "react-router-dom";
 import {
-  Avatar,
   Box,
   Button,
   Divider,
@@ -21,7 +20,7 @@ export const Nav = () => {
   }, [path]);
 
   return (
-    <>
+    <Box mt="auto">
       <Divider />
       <Flex justify="space-between" mt="2">
         <ChakraLink as={ReactRouterLink} to="/">
@@ -43,6 +42,6 @@ export const Nav = () => {
           </Button>
         </ChakraLink>
       </Flex>
-    </>
+    </Box>
   );
 };

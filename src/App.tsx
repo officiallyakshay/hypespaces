@@ -10,7 +10,7 @@ import { TopLeftLogo } from "./TopLeftLogo";
 
 function App() {
   return (
-    <Flex flexDir="column" padding="4">
+    <Flex flexDir="column" padding="4" height="100vh">
       <TopLeftLogo />
       <Divider mb="5" />
       <Routes>
